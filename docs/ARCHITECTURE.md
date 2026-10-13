@@ -3,8 +3,8 @@
 ## 1. Tổng quan
 
 ```
-Flutter App (View ⇄ Controller ⇄ Repository ⇄ Network) ──HTTPS/REST──▶ ASP.NET Core Web API ──▶ Database (chưa chốt)
-                                                                              └─▶ Firebase (tùy chọn, sau này)
+Flutter App (View ⇄ Controller ⇄ Repository ⇄ Network) ──HTTPS/REST──▶ ASP.NET Core Web API ──▶ SQL Server (EF Core)
+                                                                              └─▶ Firebase Authentication (chỉ xác thực)
 ```
 
 - **Backend là nơi xử lý nghiệp vụ** (bao gồm thuật toán gợi ý phối đồ) và cung cấp REST API cho Flutter.
@@ -69,7 +69,7 @@ Luồng: `Controller → Service → Repository → Data`. Phụ thuộc đi m�
 | Xác thực | Firebase Authentication. Flutter đăng ký/đăng nhập trực tiếp; backend chỉ xác minh Firebase ID token (`Authorization: Bearer ...`) |
 | Cơ sở dữ liệu | SQL Server, truy cập bằng EF Core (do TV1 thiết lập) |
 | HTTP client (Flutter) | `http` |
-| Upload ảnh | Qua backend (không dùng Firebase Storage) — xem API_CONTRACT |
+| Upload ảnh | Qua backend (multipart/form-data), lưu file trong thư mục `wwwroot/uploads/` với tên GUID, phục vụ bằng `UseStaticFiles()`. SQL Server chỉ lưu đường dẫn (ví dụ `/uploads/abc.jpg`). Không dùng Firebase Storage. Thư mục `uploads` phải nằm trong `.gitignore` |
 | Dữ liệu nghiệp vụ | Chỉ nằm ở backend + SQL Server; Firebase chỉ dùng cho Auth |
 
 ## 6. Cách làm việc trên backend

@@ -64,3 +64,6 @@ GoogleService-Info.plist
 key.properties
 # Backups from initialization
 *.bak
+
+# Uploaded images (runtime data)
+backend/**/wwwroot/uploads/

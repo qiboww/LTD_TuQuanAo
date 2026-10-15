@@ -1,0 +1,164 @@
+{
+  "info": {
+    "_postman_id": "f8d83921-87ab-4b92-93cb-stylewardrobe-v1",
+    "name": "StyleWardrobe API",
+    "description": "Collection test StyleWardrobe API (.NET 10 Web API + Firebase Auth)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0. Auth (Firebase)",
+      "item": [
+        {
+          "name": "Firebase - Đăng nhập lấy ID Token (test1)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.idToken) {",
+                  "    pm.environment.set(\"idToken\", jsonData.idToken);",
+                  "    console.log(\"Saved idToken to environment successfully!\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test1@sw.dev\",\n  \"password\": \"Test@123\",\n  \"returnSecureToken\": true\n}"
+            },
+            "url": {
+              "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{apiKey}}",
+              "protocol": "https",
+              "host": [
+                "identitytoolkit",
+                "googleapis",
+                "com"
+              ],
+              "path": [
+                "v1",
+                "accounts:signInWithPassword"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "{{apiKey}}"
+                }
+              ]
+            },
+            "description": "Gửi request đăng nhập Firebase Auth để nhận `idToken`. Script Tests sẽ tự động lưu token vào biến environment `idToken`."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "1. Users",
+      "item": [
+        {
+          "name": "GET /api/v1/users/me (Lấy thông tin tài khoản)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{idToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me"
+              ]
+            },
+            "description": "Lấy thông tin người dùng hiện tại từ Firebase ID Token. Nếu user chưa có trong DB, backend sẽ tự động tạo mới."
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/v1/users/me (Cập nhật thông tin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{idToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"displayName\": \"Nguyen Van A\",\n  \"avatarUrl\": \"https://images.unsplash.com/photo-1534528741775-53994a69daeb\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me"
+              ]
+            },
+            "description": "Cập nhật DisplayName và AvatarUrl của tài khoản hiện tại."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/users/me - Test thiếu Token (Mong đợi 401)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me"
+              ]
+            },
+            "description": "Test case kiểm tra trả về 401 UNAUTHORIZED chuẩn khi không gửi Authorization header."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

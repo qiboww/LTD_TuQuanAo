@@ -32,7 +32,7 @@ Commit nhỏ, mỗi commit một thay đổi logic.
 3. Xung đột ở file chung (routes, theme, contract): liên hệ Leader, không tự quyết.
 
 ## Không commit secret
-- Không commit API key, mật khẩu, token, chuỗi kết nối, `google-services.json`, keystore, `appsettings.*.json` chứa thông tin nhạy cảm, file `.env`.
+- Không commit API key, mật khẩu, token, chuỗi kết nối chứa mật khẩu, `google-services.json`, keystore, `appsettings.*.json` chứa thông tin nhạy cảm, file `.env`. (Chuỗi kết nối LocalDB không có mật khẩu dùng chung trong `appsettings.json` được phép).
 - Dùng file mẫu (`*.example`) và `.gitignore`.
 - Nếu lỡ commit secret: báo Leader ngay, thu hồi/đổi secret, không chỉ xóa ở commit sau.
 

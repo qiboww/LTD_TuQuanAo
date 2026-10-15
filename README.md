@@ -39,7 +39,8 @@ Chi tiết phân công xem [TASKS](docs/TASKS.md).
 2. [TASKS](docs/TASKS.md) — phân công và quy tắc phối hợp (**quan trọng**).
 3. [GIT_WORKFLOW](docs/GIT_WORKFLOW.md) — branch, commit, Pull Request.
 4. [ARCHITECTURE](docs/ARCHITECTURE.md) — kiến trúc Flutter (MVC + GetX) và backend phân lớp.
-5. [API_CONTRACT](docs/API_CONTRACT.md) — request/response của API.
+5. [BACKEND_SETUP](docs/BACKEND_SETUP.md) — thiết lập database LocalDB, chạy backend, Firebase ID token và mẫu phát triển.
+6. [API_CONTRACT](docs/API_CONTRACT.md) — request/response của API.
 
 Sau khi đọc: cài môi trường, chạy `flutter doctor`, tạo branch `feature/<module>-<mô-tả>` rồi bắt đầu làm.
 

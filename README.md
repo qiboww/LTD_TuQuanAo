@@ -2,7 +2,6 @@
 
 Ứng dụng di động quản lý tủ quần áo cá nhân và gợi ý phối đồ. Tên dự án tạm thời.
 
-> **Trạng thái:** giai đoạn khởi tạo — chỉ có bộ khung và tài liệu. Chưa có tính năng nghiệp vụ, database, Firebase hay kết nối API.
 
 ## Cấu trúc repository
 ```
@@ -28,7 +27,7 @@ cd backend/StyleWardrobe.Api && dotnet build && dotnet run
 ## Thành viên
 | TV | Tên | Phụ trách |
 |---|---|---|
-| 1 | Bảo (Leader) | Nền chung, auth, thuật toán gợi ý phối đồ |
+| 1 | Bảo | Nền chung, auth, thuật toán gợi ý phối đồ |
 | 2 | Kiên | Module `wardrobe` (quản lý tủ đồ) |
 | 3 | Đảm | Module `outfit` (gợi ý phối đồ, thay món) |
 | 4 | Duy | Module `favorites`, `schedule`, hồ sơ người dùng |
